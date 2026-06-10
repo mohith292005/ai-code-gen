@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <title>Code Generator Bot</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app">
+
+    <!-- Terminal window -->
+    <div class="terminal-window">
+
+      <!-- Title bar -->
+<div class="title-bar">
+ <div class="title-bar">
+  <span class="title-text">AI CODE GENERATOR</span>
+</div>
+</div>
+
+      <!-- Body: chat left, code right -->
+      <div class="terminal-body">
+
+        <!-- Left: chat -->
+        <div class="chat-panel">
+          <div id="messages"></div>
+          <form id="chat-form">
+            <div class="prompt-symbol">CG</div>
+            <input type="text" id="user-input" placeholder="Your idea is one prompt away..." autocomplete="off" />
+          </form>
+        </div>
+
+        <!-- Right: code -->
+        <div class="code-panel">
+          <div class="lang-tabs">
+            <button class="tab active" data-lang="python">py</button>
+            <button class="tab" data-lang="c">c</button>
+            <button class="tab" data-lang="java">java</button>
+            <button id="explain-btn">explain</button>
+            <button id="copy-btn">copy</button>
+          </div>
+          <div class="code-box">
+            <pre><code id="code-output">// output appears here</code></pre>
+          </div>
+        </div>
+         <!-- Explanation panel -->
+        <div class="explain-panel" id="explain-panel">
+          <div class="explain-header">
+            <span class="explain-title">EXPLANATION</span>
+            <button id="close-explain-btn">✕</button>
+          </div>
+          <div class="explain-body" id="explain-body">
+            <div class="explain-placeholder">
+              hit explain to breakdown the code
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
