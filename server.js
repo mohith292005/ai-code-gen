@@ -7,6 +7,13 @@ app.use(express.static('.'));
 
 app.post('/chat', async (req, res) => {
   try {
+    if (!process.env.OPENROUTER_API_KEY) {
+      return res.status(500).json({ error: 'OPENROUTER_API_KEY is not configured' });
+    }
+    if (!Array.isArray(req.body?.messages) || req.body.messages.length === 0) {
+      return res.status(400).json({ error: 'Request body must include a non-empty "messages" array' });
+    }
+
     const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -26,6 +33,7 @@ app.post('/chat', async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log('Server running at http://localhost:3000');
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
 });

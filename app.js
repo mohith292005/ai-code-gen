@@ -252,37 +252,37 @@ Return only valid JSON. No markdown, no backticks, no extra text.`
     // Clear loading
     body.innerHTML = '';
 
-    // Overview block
-    const overviewBlock = document.createElement('div');
-    overviewBlock.className = 'explain-block';
-    overviewBlock.innerHTML = `
-      <div class="block-num">OVERVIEW</div>
-      <div class="block-text">${parsed.overview}</div>
-    `;
-    body.appendChild(overviewBlock);
-
-    // Step blocks
-    parsed.steps.forEach(step => {
+    // Build a block with model-provided text set via textContent (avoids HTML injection)
+    const makeBlock = (num, text) => {
       const block = document.createElement('div');
       block.className = 'explain-block';
-      block.innerHTML = `
-        <div class="block-num">${step.title}</div>
-        <div class="block-text">${step.text}</div>
-      `;
-      body.appendChild(block);
-    });
 
-    // Output block
-    const outputBlock = document.createElement('div');
-    outputBlock.className = 'explain-block';
-    outputBlock.innerHTML = `
-      <div class="block-num">OUTPUT</div>
-      <div class="block-text">${parsed.output}</div>
-    `;
-    body.appendChild(outputBlock);
+      const numEl = document.createElement('div');
+      numEl.className = 'block-num';
+      numEl.textContent = num;
+
+      const textEl = document.createElement('div');
+      textEl.className = 'block-text';
+      textEl.textContent = text;
+
+      block.append(numEl, textEl);
+      return block;
+    };
+
+    body.appendChild(makeBlock('OVERVIEW', parsed.overview));
+    parsed.steps.forEach(step => body.appendChild(makeBlock(step.title, step.text)));
+    body.appendChild(makeBlock('OUTPUT', parsed.output));
 
   } catch (err) {
-    body.innerHTML = `<div class="explain-block"><div class="block-text" style="color:#ff5f57">✗ ${err.message}</div></div>`;
+    body.innerHTML = '';
+    const block = document.createElement('div');
+    block.className = 'explain-block';
+    const textEl = document.createElement('div');
+    textEl.className = 'block-text';
+    textEl.style.color = '#ff5f57';
+    textEl.textContent = '✗ ' + err.message;
+    block.appendChild(textEl);
+    body.appendChild(block);
   } finally {
     btn.disabled = false;
     btn.textContent = 'explain';
