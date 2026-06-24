@@ -42,10 +42,10 @@ Code appears with typewriter effect + syntax highlighting
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/mohith292005/ai-code-gen.git
+git clone https://github.com/mohith292005/ai-code-generator.git
 
 # 2. Install dependencies
-cd ai-code-gen && npm install
+cd ai-code-generator && npm install
 
 # 3. Add your API key
 echo "OPENROUTER_API_KEY=your-key-here" > .env
@@ -69,7 +69,7 @@ npm run dev  →  http://localhost:3000
 ## // Project Structure
 
 ```
-ai-code-gen/
+ai-code-generator/
 ├── index.html   — UI structure
 ├── style.css    — terminal theme styling
 ├── app.js       — frontend logic + API calls
